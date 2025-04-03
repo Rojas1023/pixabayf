@@ -34,6 +34,12 @@ def index():
         images = data.get("hits", [])
         total = data.get("totalHits", 0)
         total_pages = (total // 30) + (1 if total % 30 > 0 else 0)
+
+# POBREZA
+    if "pobreza" in query.lower():
+        images = [image for image in images if not any(tag in image.get("tags", "").lower() for tag in ["niño", "niña", "infante", "bebé", "child", "kid", "baby"])]
+
+
     
     page = min(page, total_pages)
     
