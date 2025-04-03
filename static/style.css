@@ -1,0 +1,326 @@
+/* Estilo general para el cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #101010;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+h1 {
+    width: auto;
+    height: auto;
+    font-size: 36px;
+    margin: 20px 0;
+    color: #fff; /* Neon teal */
+    text-shadow: 0 0 1px #44d1c7, 0 0 15px #44d1c7, 0 0 30px #44d1c7;
+    /* transition: scale 0.3s ease; */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* h1:hover {
+    scale: 1.05;
+    transition: scale 0.3s ease;
+    color: #ff007f;
+    text-shadow: 0 0 1px #ff007f, 0 0 15px #ff007f, 0 0 30px #ff007f;
+} */
+
+h1.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+h1 span {
+    font-size: 20px;
+    color: #ff9800; /* Cambia el color */
+    font-weight: bold;
+    font-style: italic;
+    transition: color 0.25s ease-in-out;
+}
+
+
+/* Estilo del formulario */
+.inputs {
+    position: sticky;
+    top: 10px;
+    background: #141414; /* Negro con tono gris oscuro */
+    color: #ffffff; /* Texto claro */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Efecto neón azul */
+    border: 1px solid rgba(0, 255, 255, 0.3); /* Borde tenue */
+    z-index: 1000;
+}
+
+input {
+    padding: 10px;
+    border: 2px solid #44d1c7; /* Neon teal border */
+    border-radius: 5px;
+    font-size: 16px;
+    width: 300px;
+    background-color: #222;
+    color: white;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #ff007f; /* Neon pink */
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #44d1c7; /* Neon teal border */
+    border-radius: 5px;
+    font-size: 16px;
+    width: 150px;
+    background-color: #222;
+    color: white;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border: 2px solid #ff007f; /* Neon pink */
+}
+
+
+button {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #44d1c7; /* Neon teal */
+    border: 2px solid #44d1c7;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff007f; /* Neon pink */
+    border-color: #ff007f;
+}
+
+
+
+/* Estilo de la galería de imágenes */
+/* .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.image-link {
+    margin: 10px;
+}
+
+.image-container{
+    position: relative;
+}
+
+.image-checkbox{
+    position: relative;
+}
+
+.imagep {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #444;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagep:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(68, 209, 199, 0.7);
+} */
+
+#save-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 90%;
+}
+
+.save{
+    position: sticky;
+    top: 90px;
+    background: #141414; /* Negro con tono gris oscuro */
+    color: #ffffff; /* Texto claro */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Efecto neón azul */
+    border: 1px solid rgba(0, 255, 255, 0.3); /* Borde tenue */
+    z-index: 1000;
+    margin-bottom: 20px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.imagep {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.imagep:hover {
+    transform: scale(1.05);
+}
+
+.image-link {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.image-checkbox {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 2; /* Hace que el checkbox esté encima del enlace */
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 15px;
+}
+
+
+
+
+
+
+
+/* Paginación */
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #ff007f; /* Neon pink */
+    color: #ff007f; /* Neon pink */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: transparent;
+}
+
+.pagination a:hover {
+    background-color: #ff007f; /* Neon pink */
+    color: white;
+}
+
+.pagination .active {
+    background-color: #ff007f; /* Neon pink */
+    color: white;
+}
+
+.pagination .dots {
+    padding: 10px;
+    color: #ff007f; /* Neon pink */
+    background-color: transparent;
+}
+
+/* Estilo para el mensaje cuando no hay imágenes */
+.no-results-message {
+    font-size: 35px;
+    color: #ff007f; /* Neon pink */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 10px #ff007f; /* Neon pink glow */
+}
+
+
+
+.home-message {
+    font-size: 18px;
+    color: #ffffff; /* Neon pink */
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 15px rgba(68, 209, 199, 0.7); /* Neon teal glow */
+}
+
+.home-message span {
+    font-size: 30px;
+    color: #ffffff; /* Neon pink */
+    text-shadow: 0 0 1px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
+}
+
+.sample-images {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sample-image {
+    width: 300px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sample-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px #ff007f; /* Neon pink glow */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+    .gallery {
+        flex-direction: column;
+    }
+    input {
+        width: 80%;
+    }
+}

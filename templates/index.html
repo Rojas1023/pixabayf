@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Imágenes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Generador de Imágenes</h1>
+    <form class="inputs" method="get" action="/">
+        <input type="text" name="query" placeholder="Genera tu imagen..." value="{{ query }}" required>
+        <select name="order" id="order-select">
+            <option value="popular" {% if order == "popular" %}selected{% endif %}>Relevancia</option>
+            <option value="latest" {% if order == "latest" %}selected{% endif %}>Más Reciente</option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+    
+    <form id="save-form" method="post" action="/guardar">
+        <button class="save" type="submit">Guardar Seleccionadas</button>
+        <div class="gallery">
+            {% for image in images %}
+                <div class="image-container">
+                    <input type="checkbox" name="selected_images" value="{{ image.largeImageURL }}" class="image-checkbox">
+                    <a href="{{ image.largeImageURL }}" target="_blank" class="image-link">
+                        <img src="{{ image.largeImageURL }}" alt="Imagen de Pixabay" class="imagep">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+    
+    <script>
+        document.getElementById('order-select').addEventListener('change', function() {
+            let query = document.querySelector('input[name="query"]').value;
+            let order = this.value;
+            window.location.href = `/?query=${encodeURIComponent(query)}&order=${order}`;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+                let titulo = document.querySelector("h1");
+                let textoOriginal = titulo.innerHTML;
+                let nuevoTexto = '¡Creado Por: Jhoan Sebastian Rojas! <span>(By: PixaBay)</span>';
+
+                titulo.addEventListener("mouseover", function () {
+                    titulo.classList.add("hidden"); // Oculta con animación
+                    setTimeout(() => {
+                        titulo.innerHTML = nuevoTexto;
+                        titulo.classList.remove("hidden"); // Muestra con animación
+                    }, 400);
+                });
+
+                titulo.addEventListener("mouseout", function () {
+                    titulo.classList.add("hidden");
+                    setTimeout(() => {
+                        titulo.innerHTML = textoOriginal;
+                        titulo.classList.remove("hidden");
+                    }, 400);
+                });
+            });
+    </script>
+    
+    {% if error %}
+        <p class="error-message">Error: {{ error }}</p>
+    {% endif %}
+
+    {% if loading %}
+        <p class="loading-message">Cargando imágenes...</p>
+    {% endif %}
+
+    {% if query and not images %}
+        <p class="no-results-message">No se encontraron resultados para la búsqueda: "{{ query }}". Intenta con otras palabras clave.</p>
+    {% elif not images %}
+    <div class="home">
+        <p class="home-message"><span>¡Bienvenido a nuestro Generador de Imágenes!</span> <br> <br>Aquí puedes buscar y generar imágenes increíbles utilizando la API de Pixabay.<br>Explora, descarga y disfruta de imágenes de alta calidad para tus proyectos.</p>
+        <div class="sample-images">
+            <img src="https://cdn.pixabay.com/photo/2022/11/02/05/53/cycling-7564103_1280.jpg" alt="Ejemplo de imagen 1" class="sample-image">
+            <img src="https://cdn.pixabay.com/photo/2024/01/07/14/12/man-8493246_1280.jpg" alt="Ejemplo de imagen 2" class="sample-image">
+            <img src="https://cdn.pixabay.com/photo/2022/05/14/15/49/mountain-7195958_1280.jpg" alt="Ejemplo de imagen 3" class="sample-image">
+        </div>
+    </div>
+    {% else %}
+
+        {% if show_pagination %}
+            <!-- Paginación -->
+            <div class="pagination">
+                <ul>
+                    {% if page > 1 %}
+                        <li><a href="/?query={{ query }}&page={{ page - 1 }}" class="previous">«</a></li>
+                    {% endif %}
+    
+                    {% for p in pagination %}
+                        {% if p == '...' %}
+                            <li class="dots">...</li>
+                        {% else %}
+                            <li>
+                                <a {% if p == page %}class="active"{% endif %} href="/?query={{ query }}&page={{ p }}">{{ p }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+    
+                    {% if page < total_pages %}
+                        <li><a href="/?query={{ query }}&page={{ page + 1 }}" class="next">»</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+
+    <script>
+        document.getElementById('save-form').addEventListener('submit', function (event) {
+            event.preventDefault();  // Evita el envío normal del formulario
+    
+            let selectedImages = [];
+            document.querySelectorAll('.image-checkbox:checked').forEach(checkbox => {
+                selectedImages.push({ url: checkbox.value });  // Enviar como objeto con clave 'url'
+            });
+    
+            let query = document.querySelector('input[name="query"]').value; // Obtener la consulta
+    
+            fetch('/guardar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selected_images: selectedImages, query: query })  // Enviar también la query
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Imágenes guardadas con éxito');
+    
+                // Desmarcar los checkboxes después de guardar
+                document.querySelectorAll('.image-checkbox:checked').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+    
+    
+    
+
+</body>
+</html>
